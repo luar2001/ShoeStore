@@ -134,4 +134,16 @@ public class Shoe {
     public void setColor(Color color) {
         this.color = color;
     }
+
+    /**
+     * Returns all all values that the user will wanna see from shoe, it excludes amount and id
+     * Returns a string with the important parts of a shoe in the order of
+     * Brand , Color , Size then prize
+     *
+     * @return String representation of the values within Shoe
+     */
+    @Override
+    public String toString() {
+        return (getBrand().getBrand() + " " + getColor().getColor() + " " + getSize() + " " + getPrice());
+    }
 }
