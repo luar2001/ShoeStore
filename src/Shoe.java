@@ -10,128 +10,128 @@
  * Shoe represent a shoe in the Shoes table in the database ShoeStore
  * <p>
  * a Shoe has
- * id: id of the shoe in the database
- * price: the amount the shoe costs
- * amount: the amount of the shoe that is in stock
- * size: the size of the shoe
- * brand: the brand that made the shoe (int that represents a brand form the Brands table)
- * color: the color of the shoe (int that represents a color form the Colors table)
+ * id: id of the Shoe in the database
+ * price: the amount the Shoe costs
+ * amount: the amount of the Shoe that is in stock
+ * size: the size of the Shoe
+ * brand: the brand that made the Shoe
+ * color: the color of the Shoe
  */
 public class Shoe {
 
     // represents all the values in the Shoes table
-    private int id = 0; // id: id of the shoe in the database
-    private int price = 0; // price: the amount the shoe costs
-    private int amount = 0; // amount: the amount of the shoe that is in stock
-    private int size = 0; // size: the size of the shoe
-    private int brand = 0; // brand: the brand that made the shoe (int that represents a brand form the Brands table)
-    private int color = 0; // color: the color of the shoe (int that represents a color form the Colors table)
+    private int id = 0; // id: id of the Shoe in the database
+    private int price = 0; // price: the amount the Shoe costs
+    private int amount = 0; // amount: the amount of the Shoe that is in stock
+    private int size = 0; // size: the size of the Shoe
+    private Brand brand = null; // brand: the brand that made the Shoe
+    private Color color = null; // color: the color of the Shoe
 
     /**
-     * Getter for the shoe's id
+     * Getter for the Shoe's id
      *
-     * @return id: id of the shoe in the database
+     * @return id: id of the Shoe in the database
      */
     public int getId() {
         return id;
     }
 
     /**
-     * Setter for the shoe's id
+     * Setter for the Shoe's id
      *
-     * @param id id: id of the shoe in the database
+     * @param id id: id of the Shoe in the database
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * Getter for the shoe's price
+     * Getter for the Shoe's price
      *
-     * @return price: the amount the shoe costs
+     * @return price: the amount the Shoe costs
      */
     public int getPrice() {
         return price;
     }
 
     /**
-     * Setter for this shoe's price
+     * Setter for this Shoe's price
      *
-     * @param price price: the amount the shoe costs
+     * @param price price: the amount the Shoe costs
      */
     public void setPrice(int price) {
         this.price = price;
     }
 
     /**
-     * Getter for this shoe's amount
+     * Getter for this Shoe's amount
      *
-     * @return amount: the amount of the shoe that is in stock
+     * @return amount: the amount of the Shoe that is in stock
      */
     public int getAmount() {
         return amount;
     }
 
     /**
-     * Setter for this shoe's amount
+     * Setter for this Shoe's amount
      *
-     * @param amount amount: the amount of the shoe that is in stock
+     * @param amount amount: the amount of the Shoe that is in stock
      */
     public void setAmount(int amount) {
         this.amount = amount;
     }
 
     /**
-     * Getter for this shoe's size
+     * Getter for this Shoe's size
      *
-     * @return size: the size of the shoe
+     * @return size: the size of the Shoe
      */
     public int getSize() {
         return size;
     }
 
     /**
-     * Setter for this shoe's size
+     * Setter for this Shoe's size
      *
-     * @param size size: the size of the shoe
+     * @param size size: the size of the Shoe
      */
     public void setSize(int size) {
         this.size = size;
     }
 
     /**
-     * Getter for the shoe's brand
+     * Getter for the Shoe's brand
      *
-     * @return brand: the brand that made the shoe (int that represents a brand form the Brands table)
+     * @return brand: the brand that made the Shoe
      */
-    public int getBrand() {
+    public Brand getBrand() {
         return brand;
     }
 
     /**
-     * Setter for the shoe's price
+     * Setter for the Shoe's price
      *
-     * @param brand brand: the brand that made the shoe (int that represents a brand form the Brands table)
+     * @param brand brand: the brand that made the Shoe
      */
-    public void setBrand(int brand) {
+    public void setBrand(Brand brand) {
         this.brand = brand;
     }
 
     /**
-     * Getter for the shoe's color
+     * Getter for the Shoe's color
      *
-     * @return color: the color of the shoe (int that represents a color form the Colors table)
+     * @return color: the color of the Shoe
      */
-    public int getColor() {
+    public Color getColor() {
         return color;
     }
 
     /**
-     * Setter for the shoe's color
+     * Setter for the Shoe's color
      *
-     * @param color color: the color of the shoe (int that represents a color form the Colors table)
+     * @param color color: the color of the Shoe
      */
-    public void setColor(int color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 }
