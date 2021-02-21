@@ -19,7 +19,7 @@ import java.util.Date;
 public class OutOfStock {
     private int id = 0; // id: id of the shoe that is out of stock
     private Date date = null; // date: the date the shoe became out of stock
-    private int shoe = 0; // shoe: the shoe that is out of stock
+    private Shoe shoe = null; // shoe: the shoe that is out of stock
 
     /**
      * Getter for the id of the row in the OutOfStock table
@@ -62,7 +62,7 @@ public class OutOfStock {
      *
      * @return shoe: the shoe that is out of stock
      */
-    public int getShoe() {
+    public Shoe getShoe() {
         return shoe;
     }
 
@@ -71,7 +71,7 @@ public class OutOfStock {
      *
      * @param shoe shoe: the shoe that is out of stock
      */
-    public void setShoe(int shoe) {
+    public void setShoe(Shoe shoe) {
         this.shoe = shoe;
     }
 }
