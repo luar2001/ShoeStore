@@ -11,7 +11,7 @@
  * <p>
  * a Color has
  * id: of the color
- * color: color of the color
+ * color: color of the Color
  */
 public class Color {
 
@@ -37,18 +37,18 @@ public class Color {
     }
 
     /**
-     * Setter for the color of the color
+     * Setter for the color of the Color
      *
-     * @return color: color of the color
+     * @return color: color of the Color
      */
     public String getColor() {
         return color;
     }
 
     /**
-     * Setter for the color of the color
+     * Setter for the color of the Color
      *
-     * @param color color: color of the color
+     * @param color color: color of the Color
      */
     public void setColor(String color) {
         this.color = color;

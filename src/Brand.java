@@ -11,7 +11,7 @@
  * <p>
  * a brand has
  * id: id of the brand in the table
- * brand: brand of the brand
+ * brand: brand of the Brand
  */
 public class Brand {
 
