@@ -19,6 +19,23 @@ public class Brand {
     private String brand = null; // brand: brand of the brand
 
     /**
+     * Constructor that takes in all parameters of Brand
+     *
+     * @param id    id: id of the brand in the table
+     * @param brand brand: brand of the brand
+     */
+    public Brand(int id, String brand) {
+        this.id = id;
+        this.brand = brand;
+    }
+
+    /**
+     * Default Constructor of Brand
+     */
+    public Brand() {
+    }
+
+    /**
      * Getter for the id
      *
      * @return id: id of the brand in the table
@@ -52,5 +69,15 @@ public class Brand {
      */
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    /**
+     * Returns a string that represents the value of Brand
+     *
+     * @return String representation of Brand
+     */
+    @Override
+    public String toString() {
+        return getBrand();
     }
 }

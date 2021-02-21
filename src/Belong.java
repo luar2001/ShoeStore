@@ -20,6 +20,25 @@ public class Belong {
     private Category category = null; // category: the category the shoe belongs in
 
     /**
+     * Constructor for Belong that takes in all parameters
+     *
+     * @param id       id: id of the belong
+     * @param shoe     shoe: the shoe that belongs to a Category
+     * @param category category: the category the shoe belongs in
+     */
+    public Belong(int id, Shoe shoe, Category category) {
+        this.id = id;
+        this.shoe = shoe;
+        this.category = category;
+    }
+
+    /**
+     * Default Constructor for Belong
+     */
+    public Belong() {
+    }
+
+    /**
      * Getter for the id of the belong
      *
      * @return id: id of the belong
@@ -71,5 +90,18 @@ public class Belong {
      */
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    /**
+     * Returns a String representation of Belong
+     *
+     * @return String representation of Belong
+     */
+    @Override
+    public String toString() {
+        return "Belong{" +
+                ", shoe=" + getShoe().toString() +
+                ", category=" + getCategory().toString() +
+                '}';
     }
 }

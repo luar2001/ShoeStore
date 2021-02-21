@@ -18,6 +18,23 @@ public class Location {
     private String location = null; // location: location of the Location
 
     /**
+     * Constructor for Location that takes in all parameters
+     *
+     * @param id       id: id of the Location
+     * @param location location: location of the Location
+     */
+    public Location(int id, String location) {
+        this.id = id;
+        this.location = location;
+    }
+
+    /**
+     * Default Location Constructor
+     */
+    public Location() {
+    }
+
+    /**
      * Getter for the id of the Location
      *
      * @return id: id of the Location
@@ -51,5 +68,15 @@ public class Location {
      */
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    /**
+     * Returns a string representation of Location
+     *
+     * @return String representation of Location
+     */
+    @Override
+    public String toString() {
+        return getLocation();
     }
 }

@@ -22,6 +22,27 @@ public class Comment {
     private Customer customer = null; // customer: customer that placed the Comment on the shoe
 
     /**
+     * Constructor for Comment that takes in all parameters
+     *
+     * @param id       id: id of the Comment
+     * @param comment  comment: comment of the Comment
+     * @param shoe     shoe: shoe that was commented
+     * @param customer customer: customer that placed the Comment on the shoe
+     */
+    public Comment(int id, String comment, Shoe shoe, Customer customer) {
+        this.id = id;
+        this.comment = comment;
+        this.shoe = shoe;
+        this.customer = customer;
+    }
+
+    /**
+     * Default Constructor for Comment
+     */
+    public Comment() {
+    }
+
+    /**
      * Getter for the id of the Comment
      *
      * @return id: id of the Comment
@@ -91,5 +112,15 @@ public class Comment {
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    /**
+     * Returns a String representation of Comment
+     *
+     * @return String representation of Comment
+     */
+    @Override
+    public String toString() {
+        return "Comment: " + getComment() + " on " + getShoe().toString() + " posted by " + getCustomer().toString();
     }
 }

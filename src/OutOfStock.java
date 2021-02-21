@@ -22,6 +22,25 @@ public class OutOfStock {
     private Shoe shoe = null; // shoe: the shoe that is out of stock
 
     /**
+     * Constructor for OutOfStock that takes in all parameters
+     *
+     * @param id   id: id of the shoe that is out of stock
+     * @param date date: the date the shoe became out of stock
+     * @param shoe shoe: the shoe that is out of stock
+     */
+    public OutOfStock(int id, Date date, Shoe shoe) {
+        this.id = id;
+        this.date = date;
+        this.shoe = shoe;
+    }
+
+    /**
+     * Default Constructor for OutOfStock
+     */
+    public OutOfStock() {
+    }
+
+    /**
      * Getter for the id of the row in the OutOfStock table
      *
      * @return id: id of the shoe that is out of stock
@@ -73,5 +92,10 @@ public class OutOfStock {
      */
     public void setShoe(Shoe shoe) {
         this.shoe = shoe;
+    }
+
+    @Override
+    public String toString() {
+        return getShoe().toString() + " Went Out of stock " + getDate();
     }
 }

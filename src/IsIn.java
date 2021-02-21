@@ -20,6 +20,25 @@ public class IsIn {
     private Shoe shoe = null; // shoe: shoe that is in the order
 
     /**
+     * Constructor for IsIn that takes in all parameters
+     *
+     * @param id    id: id of the IsIn
+     * @param order order: order that the shoe is in
+     * @param shoe  shoe: shoe that is in the order
+     */
+    public IsIn(int id, Order order, Shoe shoe) {
+        this.id = id;
+        this.order = order;
+        this.shoe = shoe;
+    }
+
+    /**
+     * Default Constructor for IsIn
+     */
+    public IsIn() {
+    }
+
+    /**
      * Getter for the id of the IsIn
      *
      * @return id: id of the IsIn
@@ -71,5 +90,19 @@ public class IsIn {
      */
     public void setShoe(Shoe shoe) {
         this.shoe = shoe;
+    }
+
+
+    /**
+     * Returns a String representation of IsIn
+     *
+     * @return String representation of IsIn
+     */
+    @Override
+    public String toString() {
+        return "IsIn{" +
+                ", order=" + getOrder().toString() +
+                ", shoe=" + getShoe().toString() +
+                '}';
     }
 }

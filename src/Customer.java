@@ -26,6 +26,31 @@ public class Customer {
     private Location location = null; // location: the Customer's order location
 
     /**
+     * Constructor for Customer that takes in all parameters
+     *
+     * @param id        id: id of the Customer
+     * @param firstName firstName: the Customer's first name
+     * @param lastName  lastName: the Customer's last name
+     * @param username  username: the Customer's username
+     * @param password  password: the Customer's password
+     * @param location  location: the Customer's order location
+     */
+    public Customer(int id, String firstName, String lastName, String username, String password, Location location) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.location = location;
+    }
+
+    /**
+     * Default Constructor for Customer
+     */
+    public Customer() {
+    }
+
+    /**
      * Getter for the id of the Customer
      *
      * @return id: id of the Customer
@@ -131,5 +156,15 @@ public class Customer {
      */
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    /**
+     * Returns a String representation of Customer
+     *
+     * @return String representation of Customer
+     */
+    @Override
+    public String toString() {
+        return getFirstName() + " " + getLastName();
     }
 }

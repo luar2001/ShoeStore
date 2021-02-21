@@ -28,6 +28,32 @@ public class Shoe {
     private Color color = null; // color: the color of the Shoe
 
     /**
+     * Constructor that sets all the values
+     *
+     * @param id     id: id of the Shoe in the database
+     * @param price  price: the amount the Shoe costs
+     * @param amount amount: the amount of the Shoe that is in stock
+     * @param size   size: the size of the Shoe
+     * @param brand  brand: the brand that made the Shoe
+     * @param color  color: the color of the Shoe
+     */
+    public Shoe(int id, int price, int amount, int size, Brand brand, Color color) {
+        setId(id);
+        setPrice(price);
+        setAmount(amount);
+        setSize(size);
+        setBrand(brand);
+        setColor(color);
+    }
+
+    /**
+     * Default Constructor
+     */
+    public Shoe() {
+    }
+
+
+    /**
      * Getter for the Shoe's id
      *
      * @return id: id of the Shoe in the database

@@ -18,6 +18,23 @@ public class Category {
     private String category = null; // category: category of the Category
 
     /**
+     * Constructor for Category that takes in all parameters
+     *
+     * @param id       id: id of the Category in the Categories table
+     * @param category category: category of the Category
+     */
+    public Category(int id, String category) {
+        this.id = id;
+        this.category = category;
+    }
+
+    /**
+     * Default Constructor for Category
+     */
+    public Category() {
+    }
+
+    /**
      * Getter for the id of the Category
      *
      * @return id: id of the Category in the Categories table
@@ -51,5 +68,15 @@ public class Category {
      */
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    /**
+     * Returns a string that represents the value of Brand
+     *
+     * @return String representation of Category
+     */
+    @Override
+    public String toString() {
+        return getCategory();
     }
 }

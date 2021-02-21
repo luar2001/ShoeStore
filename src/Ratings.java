@@ -22,6 +22,27 @@ public class Ratings {
     private Customer customer = null; // customer: the customer that placed the rating on the shoe
 
     /**
+     * Constructor for Ratings that takes in all parameters
+     *
+     * @param id       id: id of the Ratings
+     * @param shoe     shoe: shoe that has a rating
+     * @param rating   rating: rating that the shoe has
+     * @param customer customer: the customer that placed the rating on the shoe
+     */
+    public Ratings(int id, Shoe shoe, Rating rating, Customer customer) {
+        this.id = id;
+        this.shoe = shoe;
+        this.rating = rating;
+        this.customer = customer;
+    }
+
+    /**
+     * Default Constructor for Ratings
+     */
+    public Ratings() {
+    }
+
+    /**
      * Getter for the id of the Ratings
      *
      * @return id: id of the Ratings
@@ -91,5 +112,19 @@ public class Ratings {
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    /**
+     * Returns a String representation of Ratings
+     *
+     * @return String representation of Ratings
+     */
+    @Override
+    public String toString() {
+        return "Ratings{" +
+                ", shoe=" + getShoe().toString() +
+                ", rating=" + getRating().toString() +
+                ", customer=" + getCustomer().toString() +
+                '}';
     }
 }

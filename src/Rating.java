@@ -20,6 +20,25 @@ public class Rating {
     private int nRating = 0; // nRating: a number value for the rating
 
     /**
+     * Constructor for Rating that takes in all parameters
+     *
+     * @param id      id: the id of the rating
+     * @param rating  rating: the rating of the Rating
+     * @param nRating nRating: a number value for the rating
+     */
+    public Rating(int id, String rating, int nRating) {
+        this.id = id;
+        this.rating = rating;
+        this.nRating = nRating;
+    }
+
+    /**
+     * Default Constructor for Rating
+     */
+    public Rating() {
+    }
+
+    /**
      * Getter for the id of the rating
      *
      * @return id: the id of the rating
@@ -71,5 +90,15 @@ public class Rating {
      */
     public void setnRating(int nRating) {
         this.nRating = nRating;
+    }
+
+    /**
+     * Returns a string that represents the value of Rating
+     *
+     * @return String representation of Rating
+     */
+    @Override
+    public String toString() {
+        return getRating();
     }
 }

@@ -22,6 +22,25 @@ public class Order {
     private Customer customer = null; // customer: the customer that ordered the order
 
     /**
+     * Constructor for Order that takes in all parameters
+     *
+     * @param id       id: id of the Order
+     * @param date     date: the date the order was placed
+     * @param customer customer: the customer that ordered the order
+     */
+    public Order(int id, Date date, Customer customer) {
+        this.id = id;
+        this.date = date;
+        this.customer = customer;
+    }
+
+    /**
+     * Default Constructor for Order
+     */
+    public Order() {
+    }
+
+    /**
      * Getter for the id of the Order
      *
      * @return id: id of the Order
@@ -73,6 +92,16 @@ public class Order {
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    /**
+     * Returns a String representation of Order
+     *
+     * @return String representation of Order
+     */
+    @Override
+    public String toString() {
+        return "order was placed on " + date + " by " + getCustomer().toString();
     }
 }
 
