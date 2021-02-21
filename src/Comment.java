@@ -18,8 +18,8 @@
 public class Comment {
     private int id = 0; // id: id of the Comment
     private String comment = null; // comment: comment of the Comment
-    private int shoe = 0; // shoe: shoe that was commented
-    private int customer = 0; // customer: customer that placed the Comment on the shoe
+    private Shoe shoe = null; // shoe: shoe that was commented
+    private Customer customer = null; // customer: customer that placed the Comment on the shoe
 
     /**
      * Getter for the id of the Comment
@@ -62,7 +62,7 @@ public class Comment {
      *
      * @return shoe: shoe that was commented
      */
-    public int getShoe() {
+    public Shoe getShoe() {
         return shoe;
     }
 
@@ -71,7 +71,7 @@ public class Comment {
      *
      * @param shoe shoe: shoe that was commented
      */
-    public void setShoe(int shoe) {
+    public void setShoe(Shoe shoe) {
         this.shoe = shoe;
     }
 
@@ -80,7 +80,7 @@ public class Comment {
      *
      * @return customer: customer that placed the Comment on the shoe
      */
-    public int getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
@@ -89,7 +89,7 @@ public class Comment {
      *
      * @param customer customer: customer that placed the Comment on the shoe
      */
-    public void setCustomer(int customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 }
