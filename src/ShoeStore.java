@@ -51,7 +51,7 @@ public class ShoeStore {
         boolean yesOrNO = yesOrNO(scanner);
         if (yesOrNO) {
             data.update();
-            System.out.println("NOTHING HERE YET"); // TODO: 23/02/2021 show all the shoes in the order'
+            listOrder(data.isIns, data.isIns.get(data.isIns.size() - 1).getOrder());
         }
 
         //rate and comment
@@ -348,6 +348,21 @@ public class ShoeStore {
             System.out.println("\nThere has been no comments placed on this shoe yet");
         } else {
             filteredComments.forEach(comment -> System.out.println(comment.toString()));
+        }
+    }
+
+    /**
+     * Lists all the shoes that is in the order
+     *
+     * @param orders list of all the ordered shoes and what order they are associated in
+     * @param order  order witch all the items will be listed from
+     */
+    private static void listOrder(List<IsIn> orders, Order order) {
+        List<IsIn> temp = orders.stream().filter(isIn -> isIn.getOrder().equals(order)).collect(Collectors.toList());
+        if (temp.isEmpty()) {
+            System.out.println("there are no shoes in this order ? WUT ? ERROR");
+        } else {
+            temp.forEach(isIn -> System.out.println(isIn.getShoe().toString()));
         }
     }
 }
