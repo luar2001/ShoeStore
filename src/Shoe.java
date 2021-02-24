@@ -6,6 +6,8 @@
  * Copyright: MIT
  */
 
+import java.util.Objects;
+
 /**
  * Shoe represent a shoe in the Shoes table in the database ShoeStore
  * <p>
@@ -51,7 +53,6 @@ public class Shoe {
      */
     public Shoe() {
     }
-
 
     /**
      * Getter for the Shoe's id
@@ -171,5 +172,29 @@ public class Shoe {
     @Override
     public String toString() {
         return (getBrand().getBrand() + " " + getColor().getColor() + " " + getSize() + " " + getPrice());
+    }
+
+    /**
+     * Intelli j Auto Generated equals method
+     *
+     * @param o object that will be checked if its equal
+     * @return boolean true of false
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Shoe)) return false;
+        Shoe shoe = (Shoe) o;
+        return id == shoe.id && price == shoe.price && amount == shoe.amount && size == shoe.size && brand.equals(shoe.brand) && color.equals(shoe.color);
+    }
+
+    /**
+     * Intelli j Auto Generated hashcode method
+     *
+     * @return int that represent a hash of the shoe
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, price, amount, size, brand, color);
     }
 }
