@@ -22,6 +22,7 @@ import static java.sql.Types.NULL;
  *
  */
 public class ShoeStore {
+
     /**
      * Main methods that start the program
      *
@@ -273,43 +274,45 @@ public class ShoeStore {
      * @param shoe    shoe that the user ordered and will now rate and be commented on
      * @param scanner scanner for taking in user input
      */
-    private static void rateAndComment(Customer user, Shoe shoe, Scanner scanner) { // TODO: 24/02/2021 fix so you can actually rate a product
-        System.out.println("\nRatings Are (Very Unsatisfied,Unsatisfied,OK,Great,Fantastic)");
-        System.out.print("Please input rating: ");
+    private static void rateAndComment(Customer user, Shoe shoe, Scanner scanner) {
 
+        System.out.println("\nRatings Are (Very Unsatisfied,Unsatisfied,OK,Great,Fantastic)");
         while (true) {
-            String userRating = scanner.next(); // takes in user input
+            String userRating = scanner.nextLine(); // takes in user input
+
+            String comment;
             List<Rating> selectedRating = Data.ratings.stream() //picks out all matching ratings into a list (Should only be one...)
                     .filter(rating -> rating.getRating().equalsIgnoreCase(userRating))
                     .collect(Collectors.toList());
-            if (!selectedRating.isEmpty()) {
+            if (selectedRating.iterator().hasNext()) {
                 int ratingId = selectedRating.get(0).getnRating();
-                String comment = null;
-                System.out.println("\nDo you wanna comment ? ");
                 if (yesOrNO(scanner)) {
-                    System.out.print("\nPlease input Comment: ");
-                    comment = scanner.next();
+                    System.out.print("\nPlease type comment: ");
+                    Scanner input = new Scanner(System.in); // needed to make another scanner for it to work for some yet unknown reason
+                    comment = input.nextLine();
+                } else {
+                    comment = null;
                 }
                 try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/shoestore?serverTimezone=UTC&useSSL=false", // TODO: 23/02/2021 get connection string form properties file
                         "root", // TODO: 23/02/2021 get username form properties file
                         "U4C~cZ55Vi9ekW^L%k8b")) { // TODO: 23/02/2021 get password form properties file
-                    CallableStatement state = con.prepareCall("{CALL RateAndComment(?,?,?,?)}");
+                    CallableStatement state = con.prepareCall("CALL RateAndComment(?,?,?,?)");
                     state.setInt(1, user.getId());
                     state.setInt(2, shoe.getId()); // sets the shoe that will be added be rated and commented
                     state.setInt(3, ratingId);
                     state.setString(4, comment);
+                    state.execute();
+                    System.out.println("\nRating and commenting on the shoe succeeded");
                     break;
                 } catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("\nFailed to rate and comment on the product  ");
+                    break;
                 }
             } else {
-                System.out.println("\nPlease input a valid rating: ");
+                System.out.print("Please input a valid rating: ");
             }
-
-
         }
-
-
     }
 
     /**
@@ -320,10 +323,10 @@ public class ShoeStore {
     private static boolean yesOrNO(Scanner scanner) {
         System.out.print("\nPlease input (yes/no): ");
         while (true) {
-            String input = scanner.next().toLowerCase();
-            if (input.equals("yes")) {
+            String input = scanner.next();
+            if (input.equalsIgnoreCase("yes")) {
                 return true;
-            } else if (input.equals("no")) {
+            } else if (input.equalsIgnoreCase("no")) {
                 return false;
             } else {
                 System.out.print("\nPlease input (yes/no): ");
