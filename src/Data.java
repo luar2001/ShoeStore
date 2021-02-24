@@ -139,6 +139,7 @@ public class Data {
             while (rs.next()) {
                 Shoe temp = new Shoe(); //Creates a temporary shoe
                 temp.setId(rs.getInt("id"));
+                temp.setName(rs.getString("name"));
                 temp.setAmount(rs.getInt("Amount"));
                 temp.setBrand(brands.get(rs.getInt("brand") - 1));
                 temp.setColor(colors.get(rs.getInt("color") - 1));

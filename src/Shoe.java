@@ -23,6 +23,7 @@ public class Shoe {
 
     // represents all the values in the Shoes table
     private int id = 0; // id: id of the Shoe in the database
+    private String name = null; //name of the shoe
     private int price = 0; // price: the amount the Shoe costs
     private int amount = 0; // amount: the amount of the Shoe that is in stock
     private int size = 0; // size: the size of the Shoe
@@ -33,13 +34,14 @@ public class Shoe {
      * Constructor that sets all the values
      *
      * @param id     id: id of the Shoe in the database
+     * @param name   name: of the shoe
      * @param price  price: the amount the Shoe costs
      * @param amount amount: the amount of the Shoe that is in stock
      * @param size   size: the size of the Shoe
      * @param brand  brand: the brand that made the Shoe
      * @param color  color: the color of the Shoe
      */
-    public Shoe(int id, int price, int amount, int size, Brand brand, Color color) {
+    public Shoe(int id, String name, int price, int amount, int size, Brand brand, Color color) {
         setId(id);
         setPrice(price);
         setAmount(amount);
@@ -70,6 +72,24 @@ public class Shoe {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * Getter for the name of the shoe
+     *
+     * @return the name of the shoe
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * setter for the name of the shoe
+     *
+     * @param name name of the shoe
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
