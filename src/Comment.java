@@ -6,6 +6,8 @@
  * Copyright: MIT
  */
 
+import java.util.Objects;
+
 /**
  * Comment represent a comment in the Comments table in the database ShoeStore
  * <p>
@@ -121,6 +123,30 @@ public class Comment {
      */
     @Override
     public String toString() {
-        return "Comment: " + getComment() + " on " + getShoe().toString() + " posted by " + getCustomer().toString();
+        return "Comment: " + getComment() + " on Shoe: " + getShoe().toString() + " posted by: " + getCustomer().toString();
+    }
+
+    /**
+     * checks if the comment is the exact same as another comment
+     *
+     * @param o object that will be checked if its equal
+     * @return boolean (true if its equal | false if its not equals)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Comment)) return false;
+        Comment comment1 = (Comment) o;
+        return id == comment1.id && comment.equals(comment1.comment) && shoe.equals(comment1.shoe) && customer.equals(comment1.customer);
+    }
+
+    /**
+     * Auto generated hashcode
+     *
+     * @return int hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, comment, shoe, customer);
     }
 }
