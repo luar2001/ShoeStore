@@ -34,8 +34,8 @@ import java.util.List;
 public class Data {
 
     //Class.forName("com.mysql.jdbc.Driver"); // if you have problems with the mysql driver class not loading
-    private static final String username = "root"; // username for mysql -- move to a properties file later
-    private static final String password = "U4C~cZ55Vi9ekW^L%k8b"; // password for mysql -- move to a properties file later
+    private static final String username = "root"; // username for mysql -- move to a properties file later // TODO: 23/02/2021 get username form properties file
+    private static final String password = "U4C~cZ55Vi9ekW^L%k8b"; // password for mysql -- move to a properties file later // TODO: 23/02/2021 get password form properties file
     //Lists of all the data
     public static List<Brand> brands = new ArrayList<>(); // brands: list of all the Brand objects
     public static List<Color> colors = new ArrayList<>(); // colors: list of all the Color objects
