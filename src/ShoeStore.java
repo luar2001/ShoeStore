@@ -78,11 +78,12 @@ public class ShoeStore {
         while (true) {
             try {
                 String username = scanner.next();
-                System.out.print("Please Input Password: ");
-                String password = scanner.next();
-                if (customers.stream().anyMatch(customer -> customer.getUsername().equals(username))) {//username exists
-                    if (customers.stream().anyMatch(customer -> customer.getUsername().equals(username) & customer.getPassword().equals(password))) { //if password is correct
-                        return customers.stream().findAny().filter(customer -> customer.getUsername().equals(username) & customer.getPassword().equals(password)).orElseThrow();
+                List<Customer> user = customers.stream().filter(customer -> customer.getUsername().equals(username)).collect(Collectors.toList());
+                if (!user.isEmpty()) {//user with that username exists
+                    System.out.print("Please Input Password: ");
+                    String password = scanner.next();
+                    if (user.get(0).getPassword().equals(password)) { //if password is correct
+                        return user.get(0);
                     } else { //if password is wrong
                         System.out.print("Password was incorrect\nPlease input Username again: ");
                     }
@@ -107,7 +108,7 @@ public class ShoeStore {
 
         List<Shoe> availableShoes = shoes.stream()
                 .filter(shoe -> shoe.getAmount() > 0).collect(Collectors.toList());
-        availableShoes.forEach(shoe -> System.out.println(shoe.getId() + " " + shoe.toString() + " " + averageRating(shoe) + " " + averageRatingText(averageRating(shoe), Data.ratings))); // TODO: 23/02/2021 make 0 null instead of very unsatisfied
+        availableShoes.forEach(shoe -> System.out.println(shoe.getId() + " " + shoe.toString() + " " + averageRating(shoe) + " " + averageRatingText(averageRating(shoe), Data.ratings)));
 
         while (true) {
             try {
@@ -124,7 +125,6 @@ public class ShoeStore {
                 System.out.println("\nYou need to input a number that represents a shoe that exists ");
             }
         }
-
     }
 
     /***
@@ -262,7 +262,6 @@ public class ShoeStore {
         }
 
     }
-
 
     /**
      * Rate and Comment on the shoe that the user just ordered
