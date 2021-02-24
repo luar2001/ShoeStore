@@ -18,6 +18,7 @@ import java.util.Date;
  */
 public class Order {
     private int id = 0; // id: id of the Order
+    private String name = null; //name so that i do not use id to select (assignment requirement)
     private Date date = null; // date: the date the order was placed
     private Customer customer = null; // customer: the customer that ordered the order
 
@@ -30,6 +31,7 @@ public class Order {
      */
     public Order(int id, Date date, Customer customer) {
         this.id = id;
+        this.name = "order" + id;
         this.date = date;
         this.customer = customer;
     }
@@ -56,6 +58,24 @@ public class Order {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * Getter for the name of the order
+     *
+     * @return name of the order....
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Setter for the name of the order
+     *
+     * @param name name of the order....
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -101,7 +121,7 @@ public class Order {
      */
     @Override
     public String toString() {
-        return "order was placed on " + date + " by " + getCustomer().toString();
+        return name + " was placed on " + date + " by " + getCustomer().toString();
     }
 }
 

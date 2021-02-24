@@ -201,15 +201,17 @@ public class ShoeStore {
             System.out.println("\nInput order you wanna edit");
             while (true) {
                 try {
-                    int orderId = scanner.nextInt(); // TODO: 24/02/2021 change so that you select with name or something instead of id
-                    if (orderId > data.orders.size()) {
+                    System.out.println("\nSelect one of your orders form the list that you wanna edit by typing its name: ");
+                    List<Order> usersOrders = data.orders.stream().filter(order -> order.getCustomer().equals(customer)).collect(Collectors.toList());
+                    usersOrders.forEach(order -> System.out.println(order.toString()));
+                    String input = scanner.next();
+                    List<Order> selected = usersOrders.stream().filter(order1 -> order1.getName().equalsIgnoreCase(input)).collect(Collectors.toList());
+                    if (!selected.iterator().hasNext()) {
                         System.out.println("\nOrder dose not yet exist\nPlease try again: ");
-                    } else if (orderId <= 0) {
-                        System.out.println("\nOrder dose not and will never exist\nPlease try again: ");
                     } else {
                         CallableStatement state = con.prepareCall("CALL addToCart(?,?,?)");
                         state.setInt(1, customer.getId()); // sets the customer tat placed the order
-                        state.setInt(2, orderId); // order that will be edited
+                        state.setInt(2, selected.get(0).getId()); // order that will be edited
                         state.setInt(3, shoe.getId()); // sets the shoe that will be added to the order
                         state.execute(); // executes the state
                         System.out.println("\nThe shoe was added to the order :) ");
@@ -221,7 +223,7 @@ public class ShoeStore {
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
-            System.out.println("\nThe order was not edited placed !!!!");
+            System.out.println("\nThe order was not edited");
         }
     }
 
