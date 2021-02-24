@@ -6,6 +6,8 @@
  * Copyright: MIT
  */
 
+import java.util.Objects;
+
 /**
  * Customer is a representation of the Customers table in the ShoeStore database
  * <p>
@@ -166,5 +168,29 @@ public class Customer {
     @Override
     public String toString() {
         return getFirstName() + " " + getLastName();
+    }
+
+    /**
+     * Check for equality between this Customer and another Customer
+     *
+     * @param o object that will be checked for equality
+     * @return boolean (true if it is equal | false if its not equal)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+        Customer customer = (Customer) o;
+        return id == customer.id && firstName.equals(customer.firstName) && lastName.equals(customer.lastName) && username.equals(customer.username) && password.equals(customer.password) && location.equals(customer.location);
+    }
+
+    /**
+     * auto generated hashcode override by intelli J
+     *
+     * @return int that represents the hashcode of this Customer
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, username, password, location);
     }
 }
