@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static java.sql.Types.INTEGER;
 import static java.sql.Types.NULL;
@@ -36,8 +37,6 @@ public class ShoeStore {
 
         //prints list of all the shoes
         System.out.println("\nBrand Color Size Price Average Rating");
-        Data.shoes.stream().filter(shoe -> shoe.getAmount() > 0).forEach(shoe -> System.out.println(shoe.getId() + " " + shoe.toString() + " " + averageRating(shoe) + " " + Data.ratings.get(averageRating(shoe)))); // TODO: 23/02/2021 make 0 null instead of very unsatisfied
-
         //user input
         Shoe shoe = selectShoe(Data.shoes, scanner);
 
@@ -46,7 +45,7 @@ public class ShoeStore {
         System.out.println("\nWanna see whats in your order?");
         boolean yesOrNO = yesOrNO(scanner);
         if (yesOrNO) {
-            System.out.println("NOTHING HERE YET"); // TODO: 23/02/2021 show all the shoes in the order
+            System.out.println("NOTHING HERE YET"); // TODO: 23/02/2021 show all the shoes in the order'
         }
 
         //rate and comment
@@ -59,7 +58,7 @@ public class ShoeStore {
         System.out.print("\nWanna see the shoes comments?");
         boolean yesOrNO2 = yesOrNO(scanner);
         if (yesOrNO2) {
-            Data.comments.stream().filter(comment -> comment.getShoe().equals(shoe)).forEach(comment -> System.out.println(comment.toString())); // TODO: 23/02/2021 make the show comments work
+            listComments(shoe, Data.comments);
         }
 
         System.out.println("\nBye :) ");
@@ -104,11 +103,20 @@ public class ShoeStore {
      */
     private static Shoe selectShoe(List<Shoe> shoes, Scanner scanner) { // TODO: 24/02/2021 Only let it select shoes that's in stock
         System.out.println("\nChores a Shoe by typing a number ");
+
+        List<Shoe> availableShoes = shoes.stream()
+                .filter(shoe -> shoe.getAmount() > 0).collect(Collectors.toList());
+        availableShoes.forEach(shoe -> System.out.println(shoe.getId() + " " + shoe.toString() + " " + averageRating(shoe) + " " + Data.ratings.get(averageRating(shoe)))); // TODO: 23/02/2021 make 0 null instead of very unsatisfied
+
         while (true) {
             try {
                 int input = scanner.nextInt(); // TODO: 23/02/2021 change so that you select with name or something instead of id
-                System.out.println("\n" + shoes.get(input - 1).toString()); // TODO: 23/02/2021 remove was test
-                return shoes.get(input - 1);
+                if (availableShoes.stream().findAny().filter(shoe -> shoe.getId() == input).isPresent()) {
+                    System.out.println("\n" + shoes.get(input - 1).toString()); //prints out witch shoe the user selected
+                    return shoes.get(input - 1);
+                } else {
+                    System.out.println("\nPlease input the id of a shoe from the list: ");
+                }
             } catch (InputMismatchException e) {
                 System.out.println("\nYou need to input a number that represents a shoe ");
             } catch (IndexOutOfBoundsException g) {
@@ -245,7 +253,7 @@ public class ShoeStore {
      */
     private static void rateAndComment(Customer user, Shoe shoe, Scanner scanner) { // TODO: 23/02/2021 test and fix with user input instead of test data
         System.out.print("\nPlease input rating: ");
-        int rating = scanner.nextInt(); // TODO: 24/02/2021 make this one select by rating instead of rating id
+        int rating = scanner.nextInt(); // TODO: 24/02/2021 make this one select by rating instead of rating id also make it a while loop
         String comment = null;
         System.out.println("\nDo you wanna comment ? ");
         if (yesOrNO(scanner)) {
@@ -281,6 +289,21 @@ public class ShoeStore {
             } else {
                 System.out.print("\nPlease input (yes/no): ");
             }
+        }
+    }
+
+    /**
+     * Lists the comments of the shoe
+     *
+     * @param shoe     shoe whose comments will be printed
+     * @param comments list of all the comments
+     */
+    private static void listComments(Shoe shoe, List<Comment> comments) {
+        List<Comment> filteredComments = comments.stream().filter(comment -> comment.getShoe().equals(shoe)).collect(Collectors.toList());
+        if (filteredComments.isEmpty()) {
+            System.out.println("\nThere has been no comments placed on this shoe yet");
+        } else {
+            filteredComments.forEach(comment -> System.out.println(comment.toString()));
         }
     }
 }
