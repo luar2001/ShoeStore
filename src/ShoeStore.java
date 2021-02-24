@@ -10,14 +10,17 @@ import java.util.stream.Collectors;
 import static java.sql.Types.INTEGER;
 import static java.sql.Types.NULL;
 
-
-/**
+/*
  * Created by Lukas Aronsson
  * Date: 20/02/2021
  * Time: 17:35
  * Project: ShoeStore
  * Copyright: MIT
- **/
+ */
+
+/**
+ *
+ */
 public class ShoeStore {
     /**
      * Main methods that start the program
@@ -73,7 +76,7 @@ public class ShoeStore {
      * @param scanner   scanner for taking in user input
      * @return the logged in user
      */
-    private static Customer login(List<Customer> customers, Scanner scanner) { // TODO: 23/02/2021 fix login for other accounts then username (tex username1 or username2)
+    private static Customer login(List<Customer> customers, Scanner scanner) {
         System.out.print("Please login \nInput Username: ");
         while (true) {
             try {
@@ -103,7 +106,7 @@ public class ShoeStore {
      * @param scanner scanner for taking in user input
      * @return the Shoe that was selected
      */
-    private static Shoe selectShoe(List<Shoe> shoes, Scanner scanner) { // TODO: 24/02/2021 Only let it select shoes that's in stock
+    private static Shoe selectShoe(List<Shoe> shoes, Scanner scanner) {
         System.out.println("\nChores a Shoe by typing a number ");
 
         List<Shoe> availableShoes = shoes.stream()
@@ -113,7 +116,7 @@ public class ShoeStore {
         while (true) {
             try {
                 int input = scanner.nextInt(); // TODO: 23/02/2021 change so that you select with name or something instead of id
-                if (availableShoes.stream().findAny().filter(shoe -> shoe.getId() == input).isPresent()) {
+                if (availableShoes.stream().filter(shoe -> shoe.getId() == input).iterator().hasNext()) {
                     System.out.println("\n" + shoes.get(input - 1).toString()); //prints out witch shoe the user selected
                     return shoes.get(input - 1);
                 } else {
@@ -270,26 +273,43 @@ public class ShoeStore {
      * @param shoe    shoe that the user ordered and will now rate and be commented on
      * @param scanner scanner for taking in user input
      */
-    private static void rateAndComment(Customer user, Shoe shoe, Scanner scanner) {
-        System.out.print("\nPlease input rating: ");
-        int rating = scanner.nextInt(); // TODO: 24/02/2021 make this one select by rating instead of rating id also make it a while loop
-        String comment = null;
-        System.out.println("\nDo you wanna comment ? ");
-        if (yesOrNO(scanner)) {
-            System.out.print("\nPlease input Comment: ");
-            comment = scanner.next();
+    private static void rateAndComment(Customer user, Shoe shoe, Scanner scanner) { // TODO: 24/02/2021 fix so you can actually rate a product
+        System.out.println("\nRatings Are (Very Unsatisfied,Unsatisfied,OK,Great,Fantastic)");
+        System.out.print("Please input rating: ");
+
+        while (true) {
+            String userRating = scanner.next(); // takes in user input
+            List<Rating> selectedRating = Data.ratings.stream() //picks out all matching ratings into a list (Should only be one...)
+                    .filter(rating -> rating.getRating().equalsIgnoreCase(userRating))
+                    .collect(Collectors.toList());
+            if (!selectedRating.isEmpty()) {
+                int ratingId = selectedRating.get(0).getnRating();
+                String comment = null;
+                System.out.println("\nDo you wanna comment ? ");
+                if (yesOrNO(scanner)) {
+                    System.out.print("\nPlease input Comment: ");
+                    comment = scanner.next();
+                }
+                try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/shoestore?serverTimezone=UTC&useSSL=false", // TODO: 23/02/2021 get connection string form properties file
+                        "root", // TODO: 23/02/2021 get username form properties file
+                        "U4C~cZ55Vi9ekW^L%k8b")) { // TODO: 23/02/2021 get password form properties file
+                    CallableStatement state = con.prepareCall("{CALL RateAndComment(?,?,?,?)}");
+                    state.setInt(1, user.getId());
+                    state.setInt(2, shoe.getId()); // sets the shoe that will be added be rated and commented
+                    state.setInt(3, ratingId);
+                    state.setString(4, comment);
+                    break;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("\nPlease input a valid rating: ");
+            }
+
+
         }
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/shoestore?serverTimezone=UTC&useSSL=false", // TODO: 23/02/2021 get connection string form properties file
-                "root", // TODO: 23/02/2021 get username form properties file
-                "U4C~cZ55Vi9ekW^L%k8b")) { // TODO: 23/02/2021 get password form properties file
-            CallableStatement state = con.prepareCall("{CALL RateAndComment(?,?,?,?)}");
-            state.setInt("InCustomerID", user.getId());
-            state.setInt("InShoeID", shoe.getId()); // sets the shoe that will be added be rated and commented
-            state.setInt("InRatingID", rating);
-            state.setString("InComment", comment);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+
     }
 
     /**
