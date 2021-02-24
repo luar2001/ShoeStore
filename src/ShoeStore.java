@@ -29,8 +29,9 @@ public class ShoeStore {
         Scanner scanner = new Scanner(System.in); // scanner
         new Data(); // takes in the data from the database and make the tables into objects and then put them in lists
 
-        Data.customers.forEach(customer -> System.out.println(customer.getUsername()));
-        Data.customers.forEach(customer -> System.out.println(customer.getPassword()));
+        //  Data.customers.forEach(customer -> System.out.println(customer.getUsername())); //Test string that print all usernames
+        //  Data.customers.forEach(customer -> System.out.println(customer.getPassword())); //test string that prints all passwords
+
         //login
         Customer user = login(Data.customers, scanner);
         System.out.println("Welcome " + user);
@@ -106,7 +107,7 @@ public class ShoeStore {
 
         List<Shoe> availableShoes = shoes.stream()
                 .filter(shoe -> shoe.getAmount() > 0).collect(Collectors.toList());
-        availableShoes.forEach(shoe -> System.out.println(shoe.getId() + " " + shoe.toString() + " " + averageRating(shoe) + " " + Data.ratings.get(averageRating(shoe)))); // TODO: 23/02/2021 make 0 null instead of very unsatisfied
+        availableShoes.forEach(shoe -> System.out.println(shoe.getId() + " " + shoe.toString() + " " + averageRating(shoe) + " " + averageRatingText(averageRating(shoe), Data.ratings))); // TODO: 23/02/2021 make 0 null instead of very unsatisfied
 
         while (true) {
             try {
@@ -245,13 +246,32 @@ public class ShoeStore {
     }
 
     /**
+     * gets the text form of
+     *
+     * @param averageRating average rating of the shoe, represented by a number
+     * @return the string that represents the same rating but in text form
+     */
+    private static String averageRatingText(int averageRating, List<Rating> ratings) {
+        if (averageRating == 0) {
+            return null;
+        } else {
+            List<Rating> temp = ratings.stream()
+                    .filter(rating -> rating.getnRating() == averageRating)
+                    .collect(Collectors.toList());
+            return temp.get(0).toString();
+        }
+
+    }
+
+
+    /**
      * Rate and Comment on the shoe that the user just ordered
      *
      * @param user    the user that ordered something and will now rate and commented on
      * @param shoe    shoe that the user ordered and will now rate and be commented on
      * @param scanner scanner for taking in user input
      */
-    private static void rateAndComment(Customer user, Shoe shoe, Scanner scanner) { // TODO: 23/02/2021 test and fix with user input instead of test data
+    private static void rateAndComment(Customer user, Shoe shoe, Scanner scanner) {
         System.out.print("\nPlease input rating: ");
         int rating = scanner.nextInt(); // TODO: 24/02/2021 make this one select by rating instead of rating id also make it a while loop
         String comment = null;
