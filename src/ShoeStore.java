@@ -31,25 +31,26 @@ public class ShoeStore {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in); // scanner
-        new Data(); // takes in the data from the database and make the tables into objects and then put them in lists
+        Data data = new Data(); // takes in the data from the database and make the tables into objects and then put them in lists
 
         //  Data.customers.forEach(customer -> System.out.println(customer.getUsername())); //Test string that print all usernames
         //  Data.customers.forEach(customer -> System.out.println(customer.getPassword())); //test string that prints all passwords
 
         //login
-        Customer user = login(Data.customers, scanner);
+        Customer user = login(data.customers, scanner);
         System.out.println("Welcome " + user);
 
         //prints list of all the shoes
         System.out.println("\nBrand Color Size Price Average Rating");
         //user input
-        Shoe shoe = selectShoe(Data.shoes, scanner);
+        Shoe shoe = selectShoe(data.shoes, scanner, data);
 
         //add to order / order shoe
-        addToCart(user, shoe, scanner);
+        addToCart(user, shoe, scanner, data);
         System.out.println("\nWanna see whats in your order?");
         boolean yesOrNO = yesOrNO(scanner);
         if (yesOrNO) {
+            data.update();
             System.out.println("NOTHING HERE YET"); // TODO: 23/02/2021 show all the shoes in the order'
         }
 
@@ -57,13 +58,14 @@ public class ShoeStore {
         System.out.print("\nWanna rate and comment on the shoe?");
         boolean yesOrNO1 = yesOrNO(scanner);
         if (yesOrNO1) {
-            rateAndComment(user, shoe, scanner);
+            rateAndComment(user, shoe, scanner, data);
         }
 
         System.out.print("\nWanna see the shoes comments?");
         boolean yesOrNO2 = yesOrNO(scanner);
         if (yesOrNO2) {
-            listComments(shoe, Data.comments);
+            data.update();
+            listComments(shoe, data.comments);
         }
 
         System.out.println("\nBye :) ");
@@ -107,12 +109,12 @@ public class ShoeStore {
      * @param scanner scanner for taking in user input
      * @return the Shoe that was selected
      */
-    private static Shoe selectShoe(List<Shoe> shoes, Scanner scanner) {
+    private static Shoe selectShoe(List<Shoe> shoes, Scanner scanner, Data data) {
         System.out.println("\nChores a Shoe by typing a number ");
 
         List<Shoe> availableShoes = shoes.stream()
                 .filter(shoe -> shoe.getAmount() > 0).collect(Collectors.toList());
-        availableShoes.forEach(shoe -> System.out.println(shoe.getId() + " " + shoe.toString() + " " + averageRating(shoe) + " " + averageRatingText(averageRating(shoe), Data.ratings)));
+        availableShoes.forEach(shoe -> System.out.println(shoe.getId() + " " + shoe.toString() + " " + averageRating(shoe) + " " + averageRatingText(averageRating(shoe), data.ratings)));
 
         while (true) {
             try {
@@ -160,12 +162,12 @@ public class ShoeStore {
      * @param shoe     Shoe that will be added to an order
      * @param scanner  scanner for taking in user input
      */
-    private static void addToCart(Customer customer, Shoe shoe, Scanner scanner) {
+    private static void addToCart(Customer customer, Shoe shoe, Scanner scanner, Data data) {
         boolean editOrNew = editOrNew(scanner);
         if (editOrNew) {
             add(customer, shoe);
         } else {
-            edit(customer, shoe, scanner);
+            edit(customer, shoe, scanner, data);
         }
     }
 
@@ -197,15 +199,15 @@ public class ShoeStore {
      * @param customer customer that edits the order
      * @param shoe     Shoe that will be added to the order
      */
-    private static void edit(Customer customer, Shoe shoe, Scanner scanner) {
+    private static void edit(Customer customer, Shoe shoe, Scanner scanner, Data data) {
         try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/shoestore?serverTimezone=UTC&useSSL=false", // TODO: 23/02/2021 get connection string form properties file
                 "root", // TODO: 23/02/2021 get username form properties file
                 "U4C~cZ55Vi9ekW^L%k8b")) { // TODO: 23/02/2021 get password form properties file
             System.out.println("\nInput order you wanna edit");
             while (true) {
                 try {
-                    int orderId = scanner.nextInt();
-                    if (orderId > Data.orders.size()) {
+                    int orderId = scanner.nextInt(); // TODO: 24/02/2021 change so that you select with name or something instead of id
+                    if (orderId > data.orders.size()) {
                         System.out.println("\nOrder dose not yet exist\nPlease try again: ");
                     } else if (orderId <= 0) {
                         System.out.println("\nOrder dose not and will never exist\nPlease try again: ");
@@ -274,14 +276,14 @@ public class ShoeStore {
      * @param shoe    shoe that the user ordered and will now rate and be commented on
      * @param scanner scanner for taking in user input
      */
-    private static void rateAndComment(Customer user, Shoe shoe, Scanner scanner) {
+    private static void rateAndComment(Customer user, Shoe shoe, Scanner scanner, Data data) {
 
         System.out.println("\nRatings Are (Very Unsatisfied,Unsatisfied,OK,Great,Fantastic)");
         while (true) {
             String userRating = scanner.nextLine(); // takes in user input
 
             String comment;
-            List<Rating> selectedRating = Data.ratings.stream() //picks out all matching ratings into a list (Should only be one...)
+            List<Rating> selectedRating = data.ratings.stream() //picks out all matching ratings into a list (Should only be one...)
                     .filter(rating -> rating.getRating().equalsIgnoreCase(userRating))
                     .collect(Collectors.toList());
             if (selectedRating.iterator().hasNext()) {

@@ -37,21 +37,21 @@ public class Data {
     private static final String username = "root"; // username for mysql -- move to a properties file later // TODO: 23/02/2021 get username form properties file
     private static final String password = "U4C~cZ55Vi9ekW^L%k8b"; // password for mysql -- move to a properties file later // TODO: 23/02/2021 get password form properties file
     //Lists of all the data
-    public static List<Brand> brands = new ArrayList<>(); // brands: list of all the Brand objects
-    public static List<Color> colors = new ArrayList<>(); // colors: list of all the Color objects
-    public static List<Shoe> shoes = new ArrayList<>(); // shoes: list of all the Shoe objects
-    public static List<Category> categories = new ArrayList<>(); // categories: list of all the Category objects
-    public static List<Belong> belongs = new ArrayList<>(); // belongs: list of all the Belong objects
-    public static List<Location> locations = new ArrayList<>(); // locations: list of all the Location objects
-    public static List<Customer> customers = new ArrayList<>(); // customers: list of all the Customer objects
-    public static List<Order> orders = new ArrayList<>(); // orders: list of all the Orders objects
-    public static List<IsIn> isIns = new ArrayList<>(); // isIns: list of all the IsIn Objects
-    public static List<OutOfStock> outOfStocks = new ArrayList<>(); // outOfStocks: list of all the OutOfStock objects
-    public static List<Rating> ratings = new ArrayList<>(); // ratings: list of all the Rating objects
-    public static List<Ratings> ratingsList = new ArrayList<>(); // ratingsList: list of all the Ratings objects
-    public static List<Comment> comments = new ArrayList<>(); // comments: list of all the Comment objects
-    private static Statement state; //shorts the methods
-    private static ResultSet rs; //shorts the methods
+    public List<Brand> brands = new ArrayList<>(); // brands: list of all the Brand objects
+    public List<Color> colors = new ArrayList<>(); // colors: list of all the Color objects
+    public List<Shoe> shoes = new ArrayList<>(); // shoes: list of all the Shoe objects
+    public List<Category> categories = new ArrayList<>(); // categories: list of all the Category objects
+    public List<Belong> belongs = new ArrayList<>(); // belongs: list of all the Belong objects
+    public List<Location> locations = new ArrayList<>(); // locations: list of all the Location objects
+    public List<Customer> customers = new ArrayList<>(); // customers: list of all the Customer objects
+    public List<Order> orders = new ArrayList<>(); // orders: list of all the Orders objects
+    public List<IsIn> isIns = new ArrayList<>(); // isIns: list of all the IsIn Objects
+    public List<OutOfStock> outOfStocks = new ArrayList<>(); // outOfStocks: list of all the OutOfStock objects
+    public List<Rating> ratings = new ArrayList<>(); // ratings: list of all the Rating objects
+    public List<Ratings> ratingsList = new ArrayList<>(); // ratingsList: list of all the Ratings objects
+    public List<Comment> comments = new ArrayList<>(); // comments: list of all the Comment objects
+    private Statement state; //shorts the methods
+    private ResultSet rs; //shorts the methods
 
     /**
      * Constructor for the Data Class that calls all the methods
@@ -72,6 +72,21 @@ public class Data {
         dataComments();
     }
 
+    /**
+     * updates the objects that will be called for during the programs execution
+     */
+    public void update() {
+        //these are the only ones that need to be updated during the execution of the program therefore its okay to delete them all and add new ones
+        //updates orders
+        orders.clear();
+        dataOrders();
+        //updates IsIns
+        isIns.clear();
+        dataIsIns();
+        //updates comments
+        comments.clear();
+        dataComments();
+    }
 
     /**
      * Creates objects and puts them in a list of the type Brand
