@@ -114,7 +114,7 @@ public class ShoeStore {
 
         while (true) {
             try {
-                String input = scanner.next(); // TODO: 23/02/2021 change so that you select with name or something instead of id
+                String input = scanner.next();
                 List<Shoe> theShoe = availableShoes.stream().filter(shoe -> shoe.getName().equalsIgnoreCase(input)).collect(Collectors.toList());
                 if (theShoe.iterator().hasNext()) {
                     System.out.println("\n" + theShoe.get(0).toString()); //prints out witch shoe the user selected
