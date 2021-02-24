@@ -2,7 +2,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -32,9 +31,6 @@ public class ShoeStore {
 
         Scanner scanner = new Scanner(System.in); // scanner
         Data data = new Data(); // takes in the data from the database and make the tables into objects and then put them in lists
-
-        //  Data.customers.forEach(customer -> System.out.println(customer.getUsername())); //Test string that print all usernames
-        //  Data.customers.forEach(customer -> System.out.println(customer.getPassword())); //test string that prints all passwords
 
         //login
         Customer user = login(data.customers, scanner);
@@ -110,25 +106,24 @@ public class ShoeStore {
      * @return the Shoe that was selected
      */
     private static Shoe selectShoe(List<Shoe> shoes, Scanner scanner, Data data) {
-        System.out.println("\nChores a Shoe by typing a number ");
+        System.out.println("\nChores a Shoe by typing a name");
 
         List<Shoe> availableShoes = shoes.stream()
                 .filter(shoe -> shoe.getAmount() > 0).collect(Collectors.toList());
-        availableShoes.forEach(shoe -> System.out.println(shoe.getId() + " " + shoe.toString() + " " + averageRating(shoe) + " " + averageRatingText(averageRating(shoe), data.ratings)));
+        availableShoes.forEach(shoe -> System.out.println(shoe.getName() + " | " + shoe.toString() + " " + averageRating(shoe) + " " + averageRatingText(averageRating(shoe), data.ratings)));
 
         while (true) {
             try {
-                int input = scanner.nextInt(); // TODO: 23/02/2021 change so that you select with name or something instead of id
-                if (availableShoes.stream().filter(shoe -> shoe.getId() == input).iterator().hasNext()) {
-                    System.out.println("\n" + shoes.get(input - 1).toString()); //prints out witch shoe the user selected
-                    return shoes.get(input - 1);
+                String input = scanner.next(); // TODO: 23/02/2021 change so that you select with name or something instead of id
+                List<Shoe> theShoe = availableShoes.stream().filter(shoe -> shoe.getName().equalsIgnoreCase(input)).collect(Collectors.toList());
+                if (theShoe.iterator().hasNext()) {
+                    System.out.println("\n" + theShoe.get(0).toString()); //prints out witch shoe the user selected
+                    return theShoe.get(0);
                 } else {
-                    System.out.println("\nPlease input the id of a shoe from the list: ");
+                    System.out.println("\nPlease input the name of one of the shoe from the list ");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("\nYou need to input a number that represents a shoe ");
-            } catch (IndexOutOfBoundsException g) {
-                System.out.println("\nYou need to input a number that represents a shoe that exists ");
+            } catch (Exception e) {
+                System.out.println("\nYou need to input the name of one of the shoe from the list ");
             }
         }
     }
@@ -288,6 +283,7 @@ public class ShoeStore {
                     .collect(Collectors.toList());
             if (selectedRating.iterator().hasNext()) {
                 int ratingId = selectedRating.get(0).getnRating();
+                System.out.println("\nDo you wanna comment on the shoe? ");
                 if (yesOrNO(scanner)) {
                     System.out.print("\nPlease type comment: ");
                     Scanner input = new Scanner(System.in); // needed to make another scanner for it to work for some yet unknown reason
